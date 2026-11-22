@@ -1,6 +1,27 @@
 # Instant UPI Payment Gateway & Verification Engine
 
 [![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-777bb4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+
+> [!IMPORTANT]
+> **Commercial Intellectual Property Notice & Source Code Sale:**
+> This repository contains a production-ready, proprietary software solution engineered by **Ronit Goswami (RG Creators)**. It is available for commercial acquisition, full IP buyout, or custom enterprise licensing.
+> 
+> - **Asset Classification:** FinTech & Indian Digital Payments
+> - **Commercial Valuation / Fair Market Estimate:** **₹30,000 – ₹55,000 INR** *(Full Source Code & Commercial Rights)*
+> - **Full IP Buyout & Exclusive Ownership:** **₹75,000 INR**
+> - **Target Industry:** FinTech, Indian Digital Payments, SaaS Billing & Direct Merchant Settlement
+> - **Handover Deliverables:**
+>   - Complete lightweight dynamic UPI Payment Gateway source code
+>   - Dynamic order-reference UPI QR code generation and mobile deep-link intent routing
+>   - Real-time transaction verification engine with webhook notification callbacks
+>   - Merchant dashboard for transaction logs, reconciliation, and payment status checks
+>   - Postman API test collections, architecture documentation, and setup guide
+>   - 30 days of dedicated technical handover support
+> - **Official Portfolio:** [https://rgcreators.netlify.app](https://rgcreators.netlify.app)
+> - **Acquisition & Licensing Inquiries:** [rgcreatorsofficial@gmail.com](mailto:rgcreatorsofficial@gmail.com)
+
+---
+
 [![Database](https://img.shields.io/badge/MySQL-8.0%2B-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
@@ -94,3 +115,31 @@ A high-performance, lightweight Core-PHP dynamic UPI payment gateway and transac
 
 ## 📄 License
 This project is open-source under the [MIT License](LICENSE).
+
+
+---
+
+## 🚀 Future Roadmap & Next-Gen Implementation Ideas (Ready for Expansion)
+
+The following extensive architectural and feature expansions have been designed and architected for rapid implementation, transforming this solution into a high-capacity, enterprise-grade platform:
+
+1. **Dynamic UPI Deep-Link Mobile Intent Engine:** Direct 1-tap app launch for PhonePe, Google Pay, Paytm, CRED, and BHIM on mobile browsers.
+2. **Dynamic Transaction-Locked QR Codes:** QR codes encoding order reference and exact non-editable amounts preventing under/over-payments.
+3. **Automated Webhook Engine with Exponential Backoff:** High-reliability webhook dispatcher with signature verification and retry guarantees.
+4. **Reverse UPI Payouts & Automated Refunds:** Automated refund processing directly back to customer VPAs via banking partner APIs.
+5. **Multi-VPA Smart Load Balancing:** Intelligent rotation across multiple merchant VPAs with automatic failover during bank downtime.
+6. **Real-Time Settlement Ledger & Bank Statement Reconciler:** Automated bank statement ingestion matching bank UTR numbers against internal order IDs.
+7. **Lightweight Drop-in Checkout JS SDK:** 3-line JavaScript library allowing any website to embed the checkout modal effortlessly.
+8. **Zero-MDR Direct P2M Routing:** Peer-to-merchant direct settlement saving businesses standard 2% payment gateway processing fees.
+9. **Fraud Velocity Rule Engine:** Real-time detection flagging rapid micro-transactions and suspicious IP patterns.
+10. **Advanced Success Rate Analytics:** Real-time telemetry monitoring bank-wise success rates and user drop-off funnels.
+
+---
+
+## 💼 Commercial Acquisition & Licensing Agreement
+
+For source code inspection, live technical walkthrough, pricing negotiations, or exclusive enterprise buyout:
+- **Lead Architect & Developer:** Ronit Goswami (RG Creators)
+- **Primary Contact Email:** [rgcreatorsofficial@gmail.com](mailto:rgcreatorsofficial@gmail.com)
+- **Official Portfolio:** [https://rgcreators.netlify.app](https://rgcreators.netlify.app)
+- **Location:** Kolkata, West Bengal, India
