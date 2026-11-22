@@ -1,0 +1,195 @@
+<?php
+session_start();
+include 'login_system/backend/connection.php';
+
+if (!isset($_SESSION["email"])) {
+    header("Location: login_system/login.php");
+    exit();
+}
+
+$email = $_SESSION["email"];
+$query = $conn->prepare("SELECT * FROM verification_requests WHERE email = ?");
+$query->bind_param("s", $email);
+$query->execute();
+$result = $query->get_result();
+$history = $result->fetch_all(MYSQLI_ASSOC);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <style>
+        .fade-in { animation: fadeIn 1.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .pricing-card { transition: transform 0.3s; }
+        .pricing-card:hover { transform: scale(1.05); }
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+        .status-pending { background: yellow; }
+        .status-complete { background: green; }
+        .status-declined { background: red; box-shadow: 0px 0px 10px red; }
+        .popular-tag { position: absolute; top: -10px; right: -10px; background-color: #ff5c5c; color: white; padding: 5px 10px; font-weight: bold; border-radius: 5px; }
+    </style>
+</head>
+<body class="bg-light fade-in">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login_system/logout.php">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero bg-primary text-white text-center py-5" style="background-image: url('your-image.jpg'); background-size: cover;">
+        <div class="container">
+            <h1 class="display-4">Welcome to Your Dashboard</h1>
+            <p class="lead">Manage your activities and make purchases easily!</p>
+            <a href="#pricing" class="btn btn-light btn-lg">Explore Plans</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container text-center">
+            <h2>About Our Service</h2>
+            <p class="lead">We provide the best services for your needs. Enjoy secure, easy-to-use features and a seamless user experience.</p>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="bg-light py-5">
+        <div class="container text-center">
+            <h2>Choose Your Plan</h2>
+            <p class="lead">Affordable pricing for everyone</p>
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card pricing-card p-4 position-relative">
+                        <h3>Basic Plan</h3>
+                        <p>₹99</p>
+                        <button class="btn btn-primary" onclick="showQR(99)">Purchase</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card pricing-card p-4 position-relative">
+                        <h3>Pro Plan</h3>
+                        <p>₹199</p>
+                        <button class="btn btn-primary" onclick="showQR(199)">Purchase</button>
+                        <div class="popular-tag">Popular</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card pricing-card p-4 position-relative">
+                        <h3>Premium Plan</h3>
+                        <p>₹299</p>
+                        <button class="btn btn-primary" onclick="showQR(299)">Purchase</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-dark text-white">
+        <div class="container text-center">
+            <h2>Contact Us</h2>
+            <p class="lead">Have any questions? Reach out to us!</p>
+            <a href="mailto:support@company.com" class="btn btn-light">Email Us</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2025 Your Company. All rights reserved.</p>
+    </footer>
+
+    <!-- QR Payment Modal -->
+    <div class="modal fade" id="qrModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Scan & Pay</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div id="qrcode" class="mb-3"></div>
+                    <p class="mt-2">Scan QR to Pay</p>
+
+                    <!-- UPI Request Form -->
+                    <input type="text" id="userUPI" class="form-control mt-3" placeholder="Enter Your UPI ID">
+                    <button id="requestUPI" class="btn btn-success mt-2" onclick="requestUPIPayment()">Request Payment</button>
+
+                    <button id="verifyBtn" class="btn btn-primary mt-3" style="display: none;" onclick="requestVerification()">Request Verification</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        let selectedAmount = 0;
+
+        function showQR(amount) {
+            selectedAmount = amount;
+            let upiId = '7501522018@naviaxis';
+            let qrData = `upi://pay?pa=${upiId}&pn=PayEasy&am=${amount}&cu=INR`;
+        
+            document.getElementById("qrcode").innerHTML = "";
+            new QRCode(document.getElementById("qrcode"), qrData);
+        
+            let modal = new bootstrap.Modal(document.getElementById('qrModal'));
+            modal.show();
+        
+            setTimeout(() => {
+                document.getElementById("verifyBtn").style.display = "block";
+            }, 1000);
+        }
+
+        function requestUPIPayment() {
+            let userUPI = document.getElementById("userUPI").value;
+            if (userUPI === "") {
+                alert("Please enter your UPI ID!");
+                return;
+            }   
+
+            let merchantUPI = "7501522018@naviaxis";
+            let paymentRequestURL = `upi://pay?pa=${merchantUPI}&pn=PayEasy&mc=0000&tid=${Date.now()}&tr=TXN${Date.now()}&tn=Payment Request&am=${selectedAmount}&cu=INR`;  
+
+            window.location.href = paymentRequestURL;
+        }
+
+        function requestVerification() {
+            fetch('login_system/backend/request_verification.php', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json'
+                    },
+                    body: new FormData()
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => console.error('Error:', error));                
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
