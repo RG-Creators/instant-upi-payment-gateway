@@ -9,7 +9,7 @@ A high-performance, lightweight Core-PHP dynamic UPI payment gateway and transac
 
 ---
 
-## ?? Architecture & Data Flow
+## 🏗️ Architecture & Data Flow
 
 ```
 +-------------------------------------------------------------------------+
@@ -38,7 +38,7 @@ A high-performance, lightweight Core-PHP dynamic UPI payment gateway and transac
 
 ---
 
-## ? Key Features
+## ⚡ Key Features
 
 - **Dynamic UPI QR Code Generation**: Instant QR rendering for custom amounts and UPI identifiers using QR.js.
 - **Secure Transaction Auditing**: Customers submit UPI UTR/ID records that enter an automated verification pipeline.
@@ -48,7 +48,7 @@ A high-performance, lightweight Core-PHP dynamic UPI payment gateway and transac
 
 ---
 
-## ?? Tech Stack
+## 🛠️ Tech Stack
 
 - **Backend**: Native Core PHP 8.2+ (Prepared Statements, Transaction Management)
 - **Frontend**: Bootstrap 5.3, JavaScript QR Engine, Responsive CSS3
@@ -56,7 +56,7 @@ A high-performance, lightweight Core-PHP dynamic UPI payment gateway and transac
 
 ---
 
-## ?? Quick Setup & Installation
+## 🚀 Quick Setup & Installation
 
 1. **Clone the Repository**:
    ```bash
@@ -84,7 +84,7 @@ A high-performance, lightweight Core-PHP dynamic UPI payment gateway and transac
 
 ---
 
-## ?? Security Hardening Applied
+## 🔒 Security Hardening Applied
 
 - Strict parameterized SQL prepared statements preventing SQLi across all routes.
 - Comprehensive session cookie parameter hardening and session regeneration on authentication.
@@ -92,5 +92,5 @@ A high-performance, lightweight Core-PHP dynamic UPI payment gateway and transac
 
 ---
 
-## ?? License
+## 📄 License
 This project is open-source under the [MIT License](LICENSE).
